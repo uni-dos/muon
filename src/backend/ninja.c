@@ -241,12 +241,16 @@ ninja_run(struct workspace *wk, obj args, const char *chdir, const char *capture
 			.requirement = requirement_required,
 			.machine = machine_kind_build,
 		};
-		if (!find_program(wk, &fp_ctx, make_str(wk, "ninja"))) {
-			goto ret;
-		} else if (!fp_ctx.found) {
-			goto ret;
-		}
 
+		
+		if (!find_program(wk, &fp_ctx, make_str(wk, "samu"))) {
+			if (!find_program(wk, &fp_ctx, make_str(wk, "ninja"))) {
+				goto ret;
+			} else if (!fp_ctx.found) {
+				goto ret;
+			}
+		}
+		
 		struct obj_external_program *ep = get_obj_external_program(wk, found_ninja);
 		obj cmd_array = obj_external_program_cmd_array(wk, ep, 0);
 
