@@ -44,7 +44,8 @@ muon_pkgconfig_check_override(struct workspace *wk)
 	if (pkgconfig_state.type == pkgconfig_impl_type_libpkgconf
 		&& pkgconfig_state.type_source <= option_value_source_default) {
 		obj _res;
-		if (obj_dict_index_str(wk, wk->find_program_overrides[machine_kind_host], "pkg-config", &_res)) {
+		if (obj_dict_index_str(wk, wk->find_program_overrides[machine_kind_host], "u-config", &_res)
+			|| obj_dict_index_str(wk, wk->find_program_overrides[machine_kind_host], "pkg-config", &_res)) {
 			// Don't use muon_pkgconfig_set_impl_type here or it will
 			// infinitely recurse
 			pkgconfig_state.type = pkgconfig_impl_type_exec;
